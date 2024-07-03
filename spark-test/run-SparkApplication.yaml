@@ -1,1 +1,71 @@
+apiVersion: "sparkoperator.k8s.io/v1beta2"
+kind: SparkApplication
+metadata:
+  name: spark-delta-1
+  namespace: spark-jobs
+spec:
+  type: Scala
+  mode: cluster
+  image: "my-spark-test:1.0"
+  imagePullPolicy: IfNotPresent
+  mainClass: org.example.DataPrep
+  mainApplicationFile: "local:///opt/spark/jars/my-spark-test.jar"
+  sparkVersion: "3.5.1"
+  sparkUIOptions:
+    serviceLabels:
+      test-label/v1: 'true'
+  restartPolicy:
+    type: Never
+  volumes:
+    - name: "spark-local-dir-1"
+      persistentVolumeClaim:
+        claimName: spark-pvc-scratch
+    - name: "spark-events-dir"
+      persistentVolumeClaim:
+        claimName: spark-pvc-events
+  sparkConf:
+    spark.eventLog.enabled: "true"
+
+  driver:
+    cores: 1
+    coreLimit: "1200m"
+    memory: "512m"
+    labels:
+      version: 3.5.1
+    serviceAccount: sc-spark
+    envFrom:
+      - configMapRef:
+          name: spark-run-cm
+      - secretRef:
+          name: spark-run-secret
+    podSecurityContext:
+      fsGroup: 185
+    volumeMounts:
+      - name: "spark-events-dir"
+        mountPath: "/tmp/spark-events"
+
+  executor:
+    cores: 2
+    instances: 1
+    memory: "1024m"
+    labels:
+      version: 3.5.1
+    serviceAccount: sc-spark
+    envFrom:
+      - configMapRef:
+          name: spark-run-cm
+      - secretRef:
+          name: spark-run-secret
+    podSecurityContext:
+      fsGroup: 185
+    volumeMounts:
+      - name: "spark-local-dir-1"
+        mountPath: "/tmp/spark-local-dir"
+
+  monitoring:
+    exposeDriverMetrics: true
+    exposeExecutorMetrics: true
+    prometheus:
+      jmxExporterJar: "/opt/spark/jars/jmx_prometheus_javaagent-1.0.1.jar"
+      port: 8090
 
