@@ -16,12 +16,7 @@ spec:
       test-label/v1: 'true'
   restartPolicy:
     type: Never
-  volumes:
-    - name: "spark-events-dir"
-      persistentVolumeClaim:
-        claimName: spark-pvc-events
-  sparkConf:
-    spark.eventLog.enabled: "true"
+
 
   driver:
     cores: 1
