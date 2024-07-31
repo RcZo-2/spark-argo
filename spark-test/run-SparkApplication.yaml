@@ -16,7 +16,8 @@ spec:
       test-label/v1: 'true'
   restartPolicy:
     type: Never
-
+  sparkConf:
+    spark.hadoop.fs.s3a.aws.credentials.provider: "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider"
 
   driver:
     cores: 1
