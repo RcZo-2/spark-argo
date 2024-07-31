@@ -6,10 +6,10 @@ metadata:
 spec:
   type: Scala
   mode: cluster
-  image: "my-spark-test:1.0"
+  image: "my-emr-test:1.0"
   imagePullPolicy: IfNotPresent
   mainClass: org.example.DataPrep
-  mainApplicationFile: "local:///opt/spark/jars/my-spark-test.jar"
+  mainApplicationFile: "local:///home/hadoop/jars/my-spark-test.jar"
   sparkVersion: "3.5.1"
   sparkUIOptions:
     serviceLabels:
@@ -17,9 +17,6 @@ spec:
   restartPolicy:
     type: Never
   volumes:
-    - name: "spark-local-dir-1"
-      persistentVolumeClaim:
-        claimName: spark-pvc-scratch
     - name: "spark-events-dir"
       persistentVolumeClaim:
         claimName: spark-pvc-events
@@ -38,11 +35,6 @@ spec:
           name: spark-run-cm
       - secretRef:
           name: spark-run-secret
-    podSecurityContext:
-      fsGroup: 185
-    volumeMounts:
-      - name: "spark-events-dir"
-        mountPath: "/tmp/spark-events"
 
   executor:
     cores: 2
@@ -56,16 +48,3 @@ spec:
           name: spark-run-cm
       - secretRef:
           name: spark-run-secret
-    podSecurityContext:
-      fsGroup: 185
-    volumeMounts:
-      - name: "spark-local-dir-1"
-        mountPath: "/tmp/spark-local-dir"
-
-  monitoring:
-    exposeDriverMetrics: true
-    exposeExecutorMetrics: true
-    prometheus:
-      jmxExporterJar: "/opt/spark/jars/jmx_prometheus_javaagent-1.0.1.jar"
-      port: 8090
-
