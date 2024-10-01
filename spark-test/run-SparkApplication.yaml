@@ -25,18 +25,6 @@ spec:
         claimName: spark-pvc-events
   sparkConf:
     spark.eventLog.enabled: "true"
-    spark.streaming.backpressure.enabled: "true"
-    spark.streaming.stopGracefullyOnShutdown: "true"
-    spark.sql.streaming.stateStore.providerClass: "com.paic.RocksDbStateStoreProvider"
-    spark.sql.streaming.stateStore.minDeltasForSnapshot: 2
-    spark.sql.streaming.minBatchesToRetain: 3
-    spark.sql.streaming.stateStore.minDeltasForSnapshot: 3
-    spark.memory.fraction: 0.8
-    spark.memory.storageFraction: 0.1
-    spark.cleaner.periodicGC.interval: "5min"
-    spark.cleaner.referenceTracking.blocking.shuffle: "true"
-    spark.cleaner.referenceTracking.cleanCheckpoints: "true"
-    spark.speculation: "true"
     
   driver:
     cores: 1
