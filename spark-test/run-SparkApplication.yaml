@@ -38,8 +38,6 @@ spec:
           name: spark-run-cm
       - secretRef:
           name: spark-run-secret
-    podSecurityContext:
-      fsGroup: 185
     volumeMounts:
       - name: "spark-local-dir-1"
         mountPath: "/tmp/spark-local-dir"
@@ -58,8 +56,6 @@ spec:
           name: spark-run-cm
       - secretRef:
           name: spark-run-secret
-    podSecurityContext:
-      fsGroup: 185
     volumeMounts:
       - name: "spark-local-dir-1"
         mountPath: "/tmp/spark-local-dir"
