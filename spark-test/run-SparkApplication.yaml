@@ -25,6 +25,7 @@ spec:
         claimName: spark-pvc-events
   sparkConf:
     spark.eventLog.enabled: "true"
+    spark.log.level: "WARN"
     spark.streaming.backpressure.enabled: "true"
     spark.streaming.stopGracefullyOnShutdown: "true"
     spark.sql.streaming.stateStore.providerClass: "org.apache.spark.sql.execution.streaming.state.RocksDBStateStoreProvider"
