@@ -28,9 +28,8 @@ spec:
     spark.streaming.backpressure.enabled: "true"
     spark.streaming.stopGracefullyOnShutdown: "true"
     spark.sql.streaming.stateStore.providerClass: "org.apache.spark.sql.execution.streaming.state.RocksDBStateStoreProvider"
-    spark.sql.streaming.stateStore.minDeltasForSnapshot: 2
-    spark.sql.streaming.minBatchesToRetain: 3
-    spark.sql.streaming.stateStore.minDeltasForSnapshot: 3
+    spark.sql.streaming.stateStore.minDeltasForSnapshot: "2"
+    spark.sql.streaming.minBatchesToRetain: "3"
     spark.memory.fraction: "0.8"
     spark.memory.storageFraction: "0.1"
     spark.cleaner.periodicGC.interval: "5min"
