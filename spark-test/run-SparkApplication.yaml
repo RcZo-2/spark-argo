@@ -40,6 +40,7 @@ spec:
           name: spark-run-secret
     podSecurityContext:
       runAsGroup: 185
+      runAsUser: 185
       fsGroup: 185
     volumeMounts:
       - name: "spark-local-dir-1"
@@ -61,6 +62,7 @@ spec:
           name: spark-run-secret
     podSecurityContext:
       runAsGroup: 185
+      runAsUser: 185
       fsGroup: 185
     volumeMounts:
       - name: "spark-local-dir-1"
