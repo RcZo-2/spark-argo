@@ -41,8 +41,6 @@ spec:
     podSecurityContext:
       fsGroup: 185
     volumeMounts:
-      - name: "spark-local-dir-1"
-        mountPath: "/tmp/spark-local-dir"
       - name: "spark-events-dir"
         mountPath: "/tmp/spark-events"
 
