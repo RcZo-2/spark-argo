@@ -1,15 +1,15 @@
 apiVersion: "sparkoperator.k8s.io/v1beta2"
 kind: SparkApplication
 metadata:
-  name: spark-delta-1
+  name: spark-msk-1
   namespace: spark-jobs
 spec:
   type: Scala
   mode: cluster
-  image: "my-spark-test:1.0"
+  image: "my-spark-msk:1.0"
   imagePullPolicy: IfNotPresent
-  mainClass: org.example.DataPrep
-  mainApplicationFile: "local:///opt/spark/jars/my-spark-test.jar"
+  mainClass: org.example.TestMSK
+  mainApplicationFile: "local:///opt/spark/jars/my-spark-msk-1.0.jar"
   sparkVersion: "3.5.1"
   sparkUIOptions:
     serviceLabels:
@@ -60,13 +60,6 @@ spec:
           name: spark-run-cm
       - secretRef:
           name: spark-run-secret
-    podSecurityContext:
-      runAsGroup: 185
-      runAsUser: 185
-      fsGroup: 185
-    volumeMounts:
-      - name: "spark-local-dir-1"
-        mountPath: "/tmp/spark-local-dir"
 
   monitoring:
     exposeDriverMetrics: true
