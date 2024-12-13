@@ -17,9 +17,6 @@ spec:
   restartPolicy:
     type: Never
   volumes:
-    - name: "spark-local-dir-1"
-      persistentVolumeClaim:
-        claimName: spark-pvc-scratch
     - name: "spark-events-dir"
       persistentVolumeClaim:
         claimName: spark-pvc-events
