@@ -64,11 +64,3 @@ spec:
           name: spark-run-cm
       - secretRef:
           name: spark-run-secret
-
-  monitoring:
-    exposeDriverMetrics: true
-    exposeExecutorMetrics: true
-    prometheus:
-      jmxExporterJar: "/opt/spark/jars/jmx_prometheus_javaagent-1.0.1.jar"
-      port: 8090
-
