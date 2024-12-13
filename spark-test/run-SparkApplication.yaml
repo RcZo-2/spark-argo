@@ -9,7 +9,7 @@ spec:
   image: "spark-emr-test:1.0"
   imagePullPolicy: IfNotPresent
   mainClass: org.example.StateChangeDetetor
-  mainApplicationFile: "local:///run/spark/work/spark-project-example-1.0.jar""
+  mainApplicationFile: "local:///run/spark/work/spark-project-example-1.0.jar"
   sparkVersion: "3.5.2"
   sparkUIOptions:
     serviceLabels:
