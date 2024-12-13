@@ -1,16 +1,16 @@
 apiVersion: "sparkoperator.k8s.io/v1beta2"
 kind: SparkApplication
 metadata:
-  name: spark-msk-1
+  name: spark-test-stream
   namespace: spark-jobs
 spec:
   type: Scala
   mode: cluster
-  image: "my-spark-msk:1.0"
+  image: "spark-emr-test:1.0"
   imagePullPolicy: IfNotPresent
-  mainClass: org.example.TestMSK
-  mainApplicationFile: "local:///opt/spark/jars/my-spark-msk-1.0.jar"
-  sparkVersion: "3.5.1"
+  mainClass: org.example.StateChangeDetetor
+  mainApplicationFile: "local:///run/spark/work/spark-project-example-1.0.jar""
+  sparkVersion: "3.5.2"
   sparkUIOptions:
     serviceLabels:
       test-label/v1: 'true'
@@ -43,29 +43,24 @@ spec:
     coreLimit: "1200m"
     memory: "512m"
     labels:
-      version: 3.5.1
+      version: 3.5.2
     serviceAccount: sc-spark
     envFrom:
       - configMapRef:
           name: spark-run-cm
       - secretRef:
           name: spark-run-secret
-    podSecurityContext:
-      runAsGroup: 185
-      runAsUser: 185
-      fsGroup: 185
+
     volumeMounts:
-      - name: "spark-local-dir-1"
-        mountPath: "/tmp/spark-local-dir"
       - name: "spark-events-dir"
-        mountPath: "/tmp/spark-events"
+        mountPath: "/ckpt_state"
 
   executor:
-    cores: 2
-    instances: 1
+    cores: 1
+    instances: 2
     memory: "1024m"
     labels:
-      version: 3.5.1
+      version: 3.5.2
     serviceAccount: sc-spark
     envFrom:
       - configMapRef:
